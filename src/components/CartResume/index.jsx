@@ -118,7 +118,7 @@ export function CartResume() {
         </div>
       </Container>
 
-      <Button onClick={submitOrder}>Finalizar el pedido </Button>
+      <Button onClick={submitOrder}>Finalizar </Button>
     </div>
   );
 }
