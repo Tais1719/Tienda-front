@@ -77,7 +77,7 @@ export function CartResume() {
     <div>
       <Container>
         <div className="container-top">
-          <h2 className="title">Resumo del pedido</h2>
+          <h2 className="title">Resumo do pedido</h2>
           <p className="items">Itens</p>
           <p className="items-price">{FormatPrice(finalPrice)}</p>
           <p className="delivery-tax">Taxa de entrega</p>
