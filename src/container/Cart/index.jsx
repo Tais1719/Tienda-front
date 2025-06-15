@@ -6,7 +6,7 @@ export function Cart() {
   return (
     <Container>
      
-      <Title>Checkout do-  seu - Pedido</Title>
+      <Title>Checkout do Pedido</Title>
       <Content>
         <CartItems />
         <CartResume />
