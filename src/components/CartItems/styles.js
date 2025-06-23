@@ -1,55 +1,68 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
+export const EmptyCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  color: #666;
 
+  p {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+`
 
 export const ProductImage = styled.img`
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+`
 
-height: 120px;
-width: 120px;
-`;
+export const ProductTotalPrice = styled.span`
+  font-weight: 600;
+`
 
 export const ButtonGroup = styled.div`
-display: flex;
-align-items: center;
-gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-
-button { 
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    color: #fff;
-    border-radius: 4px;
-    background-color:  ${(props) =>props.theme.  darkGray};
-    transition: all 0.4s;
+  button {
+    width: 32px;
+    height: 32px;
+    background: #f3f4f6;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.2s, transform 0.1s;
 
-    &:hover { 
-        background-color:#6b7280;
+    &:hover {
+      background: #e5e7eb;
     }
 
-}
-`;
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 
-
-export const EmtyCart = styled.p`
-font-size: 20px;
-text-align: center;
-font-weight: bold;
-color: navy;
-`;
-
-
-
-export const ProductTotalPrice = styled.p`
-
-font-weight: bold;
-`;
+  span {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 600;
+  }
+`
 
 export const TrashImage = styled.img`
-height: 20px;
-width: 20px;
-cursor: pointer;
-`;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`

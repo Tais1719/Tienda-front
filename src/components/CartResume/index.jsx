@@ -172,7 +172,7 @@ export function CartResume() {
           type="text"
           placeholder="Nome completo *"
           value={nome}
-          onChange={e => setNome(e.target.value)}
+          onChange={e => setNome(e.target.value)} 
         />
         <input
           type="email"

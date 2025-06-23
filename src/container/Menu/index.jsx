@@ -56,14 +56,7 @@ export function Menu() {
   return (
     <main>
       <Container>
-        <Banner>
-          <h1>
-            <br />
-            Moda que te define
-            <br />
-            calidad que, que te <span>Acompaña!</span>
-          </h1>
-        </Banner>
+      
 
         <ProductsContainer>
           {filteredProducts.map((product) => (
