@@ -79,7 +79,7 @@ export const CardButton = styled.button`
   font-size: 16px;
 
   &:hover {
-    background-color: #e07b04;
+    background-color: #e07b04; 
   }
 
   @media (max-width: 430px) {

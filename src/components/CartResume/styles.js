@@ -1,72 +1,53 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: aliceblue;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
 
-  * {
-    color: #484848;
-    font-weight: 600;
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #3b5672;
+    margin-bottom: 30px;
+    text-align: center;
   }
 
-  .container-top {
-    display: grid;
-    grid-gap: 10px 18%;
-    grid-template-areas: 
-      'title title'      
-      'items items-price'
-      'delivery-tax delivery-tax-price';
+  .linha-flex {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
 
-    .title {
-      grid-area: title;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      background-color: #484848;
-      color: #fff;
-      width: 100%;
-      padding: 15px;
-      text-align: center;
-      border-top-right-radius: 20px;
-      border-top-left-radius: 20px;
-    }
-
-    .items {
-      grid-area: items;
-      padding-left: 20px;
-    }
-
-    .items-price {
-      grid-area: items-price;
-      padding-right: 20px;
-    }
-
-    .delivery-tax {
-      grid-area: delivery-tax;
-      padding-left: 20px;
-      white-space: nowrap;
-    }
-
-    .delivery-tax-price {
-      grid-area: delivery-tax-price;
-      padding-right: 20px;
+    input {
+      flex: 1;
     }
   }
 
   .container-bottom {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    margin-top: 24px;
-    padding-right: 40px;
+   
+    margin-top: 20px;
+   margin-right:80px;
+    font-size: 16px;
+    
 
-    * {
-      font-weight: 700;
-      color: #000;
+    .linha-valor {
+       margin-left: 40px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    } 
+
+    .total {
+      margin-left: 40px;
+      font-size: 20px;
+      font-weight: 600;
+      border-top: 2px solidrgb(65, 66, 68);
+      padding-top: 8px;
+      margin-top: 10px;
+      color:#1b4332;
+      margin-bottom: 30px;;
     }
   }
 `;
@@ -74,32 +55,64 @@ export const Container = styled.div`
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+
+  input {
+    padding: 10px 5px 8px 5px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #484848;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-bottom-color: #1a73e8;
+    }
+  }
+`;
+
+export const EnderecoDetalhado = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   label {
-    margin-bottom: 5px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
   }
 
   input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px 5px 8px 5px;
+    font-weight: 600;
+    color: #484848;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-bottom: 0;
   }
 
-  button {
-    background-color: #1a73e8;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
+  .linha-flex {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
 
-    &:hover {
-      background-color: #145bb5;
+    > div.input-pequeno {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
   }
+`;
+
+export const LinhaHorizontal = styled.hr`
+ 
+  border: none;
 `;

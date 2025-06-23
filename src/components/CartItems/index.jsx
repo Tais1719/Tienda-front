@@ -18,7 +18,7 @@ export function CartItems() {
             <Table.Tr>
     <Table.Th></Table.Th>
     <Table.Th>Itens</Table.Th>
-    <Table.Th>Precio</Table.Th>
+    <Table.Th>Precio</Table.Th> 
     <Table.Th>Cantidad</Table.Th>
     <Table.Th>Total</Table.Th>
     <Table.Th></Table.Th>
@@ -35,7 +35,7 @@ export function CartItems() {
                             <Table.Td>{product.name}</Table.Td>
                             <Table.Td>{product.CurrencyValue}</Table.Td>
                             <Table.Td>
-                                <ButtonGroup>
+                                <ButtonGroup> 
                                     <button onClick={() => {
                                         decreaseProduct(product.id)
                                         decrement()

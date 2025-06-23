@@ -39,7 +39,7 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.darkWhite};
   width: 100%;
   height: 15%;
-  padding: 0 66px;
+  padding: 0 96px;
   position: fixed;
   top: 0;
   z-index: 9999;
@@ -88,7 +88,7 @@ export const Options = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 55px;
+  gap: 105px;
 `
 
 export const Profile = styled.div`
@@ -129,13 +129,6 @@ export const SearchForm = styled.form`
   background-color: #fff;
   border-radius: 4px;
   padding: 4px 8px;
-
-  input {
-    border: none;
-    outline: none;
-    font-size: 14px;
-    padding: 4px;
-  }
 
   button {
     background: none;

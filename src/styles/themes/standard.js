@@ -7,7 +7,7 @@ export const standardTheme = {
   // Neutros e contrastes
   mainBlack: '#0f0f0f',
   black: '#1a1a1a',
-  secondBlack: '#2c2c2c',
+  secondBlack: '#2c2c2c', 
   darkGray: '#4b5563',
   lightGray: '#d1d5db',
 
@@ -32,7 +32,7 @@ export const standardTheme = {
   // Cores para detalhes e promoções
   emerald: '#10b981',
   orange: '#f97316',
-  burgundy: '#800020',
+  burgundy: '#800020', 
   silver: '#c0c0c0',
 
   // 🌿 Tons terrosos modernos

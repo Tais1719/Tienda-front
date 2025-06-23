@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 
 export const ProductImage = styled.img`
-height: 80px;
-width: 80px;
-border-radius: 16px;
+
+height: 120px;
+width: 120px;
 `;
 
 export const ButtonGroup = styled.div`
@@ -22,12 +22,12 @@ button {
     width: 30px;
     color: #fff;
     border-radius: 4px;
-    background-color:  ${(props) =>props.theme. darkBlue};
+    background-color:  ${(props) =>props.theme.  darkGray};
     transition: all 0.4s;
     border: none;
 
     &:hover { 
-        background-color:blue;
+        background-color:#6b7280;
     }
 
 }
