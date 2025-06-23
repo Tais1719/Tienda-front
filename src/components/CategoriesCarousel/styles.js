@@ -34,10 +34,9 @@ export const Subtitle = styled.h2`
   font-family: Arial, Helvetica, sans-serif;
   color: #555;
 `;
-
 export const BannerImage = styled.img`
   width: 100vw;
-  height: 60vh;
-  object-fit: cover;
+  height: 70vh;
+  
   display: block;
 `;
