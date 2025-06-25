@@ -29,7 +29,7 @@ export function ProductDetailsPage() {
           CurrencyValue: FormatPrice(data.price),
           images: fakeImages,
           ...data,
-        });
+        }); 
 
         setError(null);
       } catch (error) {

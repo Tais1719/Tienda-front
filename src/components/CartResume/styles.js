@@ -1,24 +1,25 @@
 import styled from "styled-components";
+import { Button as DefaultButton } from "../../Button";
 
 export const Container = styled.div`
   width: 100%;
   max-width: 720px;
-  margin: 40px auto;
-  padding: 0 20px;
+  margin: 10px auto;
+  padding: 0 10px;
   font-family: Arial, sans-serif;
 
   .title {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     color: #3b5672;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
   }
 
   .linha-flex {
     display: flex;
-    gap: 20px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 8px;
 
     input {
       flex: 1;
@@ -26,28 +27,26 @@ export const Container = styled.div`
   }
 
   .container-bottom {
-   
-    margin-top: 20px;
-   margin-right:80px;
-    font-size: 16px;
-    
+    margin-top: 10px;
+    margin-right: 20px;
+    font-size: 14px;
+    color: #222;
 
     .linha-valor {
-       margin-left: 40px;
+      margin-left: 20px;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 8px;
-    } 
+      margin-bottom: 4px;
+    }
 
     .total {
-      margin-left: 40px;
-      font-size: 20px;
-      font-weight: 600;
-      border-top: 2px solidrgb(65, 66, 68);
-      padding-top: 8px;
-      margin-top: 10px;
-      color:#1b4332;
-      margin-bottom: 30px;;
+      font-size: 18px;
+      font-weight: 700;
+      border-top: 1px solid #444;
+      padding-top: 6px;
+      margin-top: 6px;
+      margin-left: 20px;
+      margin-bottom: 20px;
     }
   }
 `;
@@ -57,52 +56,62 @@ export const FormGroup = styled.div`
   flex-direction: column;
 
   input {
-    padding: 10px 5px 8px 5px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-    font-weight: 600;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: 500;
     color: #484848;
     outline: none;
-    transition: border-color 0.3s ease;
+    background-color: #fdfdfd;
+    transition: border-color 0.2s ease;
 
     &:focus {
-      border-bottom-color: #1a73e8;
+      border-color: #1a73e8;
+      background-color: #fff;
+    }
+
+    &::placeholder {
+      color: #999;
+      font-weight: 400;
     }
   }
 `;
 
 export const EnderecoDetalhado = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 
   label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 6px;
-    color: #333;
+    margin-bottom: 4px;
+    color: #2a2a2a;
   }
 
   input {
     width: 100%;
-    padding: 10px 5px 8px 5px;
-    font-weight: 600;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 500;
     color: #484848;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
     outline: none;
-    transition: border-color 0.3s ease;
-    margin-bottom: 0;
+
+    &:focus {
+      border-color: #1a73e8;
+      background-color: #fff;
+    }
   }
 
   .linha-flex {
     display: flex;
-    gap: 20px;
-    margin-bottom: 10px;
+    gap: 8px;
 
     > div.input-pequeno {
       flex: 1;
@@ -113,6 +122,57 @@ export const EnderecoDetalhado = styled.div`
 `;
 
 export const LinhaHorizontal = styled.hr`
- 
   border: none;
+  height: 1px;
+  background-color: #ccc;
+  margin: 20px 0;
+`;
+
+export const EmptyCartContainer = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px 20px 0; /* espaço acima */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centraliza horizontalmente */
+
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  svg {
+    width: 150px;
+    opacity: 0.5;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 22px;
+    color: #3b5672;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+    max-width: 480px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+`;
+
+export const EmptyCartButton = styled(DefaultButton)`
+  margin-top: 20px;
+  padding: 6px 14px;
+  font-size: 16px;
+  border-radius: 50px;
+  background-color: #60a5fa;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #3b82f6;
+  }
 `;

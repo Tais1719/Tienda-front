@@ -20,8 +20,8 @@ export function CategoriesCarousel() {
   return (
     <Container>
       <HeaderText>
-        <Title>Preço de perder o fôlego</Title>
-        <Subtitle>Ofertas incríveis só por tempo limitado</Subtitle>
+        <Title> “Precios tan buenos que cuesta resistir” </Title>
+        <Subtitle>Ofertas increíbles solo por tiempo limitado.</Subtitle>
       </HeaderText>
       <BannerImage
         src={images[currentIndex]}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 103px;
+  margin-top: 50px;
   min-height: 100vh;
   background: linear-gradient(135deg,rgb(204, 220, 235) 0%,rgb(235, 240, 236) 100%);
   background-repeat: no-repeat;
@@ -33,7 +33,7 @@ export const Banner = styled.div`
 
 display: flex;
 justify-content: center;
-height: 400px;
+
 position: relative;
 background-position: center;
 background-size: cover;

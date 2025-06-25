@@ -17,15 +17,12 @@ export function CartItems() {
   const decrement = useAppStore((state) => state.decrement)
   const resetCount = useAppStore((state) => state.resetCount)
 
-  // Se estiver vazio, mostra só a lixeira + texto
-  if (!cartProducts.length) {
-    return (
-      <EmptyCart>
-        <TrashImage src={TrashIcon} alt="Carrinho vazio" />
-        <p>Seu carrinho está vazio</p>
-      </EmptyCart>
-    )
-  }
+if (!cartProducts.length) {
+  return null;
+}
+
+
+
 
   return (
     <Table.Root>
