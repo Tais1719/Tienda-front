@@ -7,38 +7,38 @@ export const orderStatusOptions = [
        value:'Todos',
 
     },
-    { 
-        id: 1, 
-        label: 'Pedido Realizado',
-       value:'Pedido Realizado',
-
-    },
+    
    
     { 
-        id: 2, 
+        id: 1, 
         label: 'em preparacao',
        value:'em preparacao',
     },
    
     { 
-        id: 3, 
+        id: 2,  
         label: 'Pedido Pronto',
        value: 'Pedido Pronto',
 
     },
     { 
-        id: 4, 
+        id: 3, 
         label: 'Pedido a caminho',
        value: 'Pedido a caminho',
 
     },
     { 
-        id: 5, 
+        id: 4, 
         label: 'Pedido Entregue',
        value: 'Pedido Entregue',
 
     },
-   
+   { 
+        id: 6, 
+        label: 'Pedido Realizado',
+       value:'Pedido Realizado',
+
+    },
 
   ];
   

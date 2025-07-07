@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 
 export const Container = styled.div`
-  width: 100vw; /* Ocupa toda a largura da viewport */
+
+  width: 100%; /* Ocupa toda a largura da viewport */
+
 .carousel-item{
 
     padding-right: 40px;
-    
+
 
 } 
 
@@ -28,8 +30,9 @@ overflow: visible;
 }
 
 .react-multiple-carousel__arrow--right {
+  
 right: 130px;
-  top:10px;
+  top:30px;
 
 }
 
@@ -40,27 +43,52 @@ padding-bottom:40px;
 
 
 `
-
 export const Title = styled.h2`
-font-size: 32px;
-color:blue;
-font-weight: 900;
-padding-bottom: 8px;
-position: relative;
-text-align: center;
-margin:60px 0;
+  margin-top: 40px;
+  font-size: 40px;
+  font-weight: 900;
+  color: transparent;
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
 
-&::after{
+  background: linear-gradient(
+    
+
+    #64748b 90%       /* cinza azulado suave */
+  );
+  background-size: 20% 100%;
+  
+  background-clip: text;
+  -webkit-background-clip: text;
+
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+
+  &::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    width: 55px;
-    height: 4px;
-    background:navy;
+    bottom: -16px;
     left: 50%;
-transform: translateX(-28px);
+    transform: translateX(-50%);
+    width: 140px;
+    height: 8px;
+    border-radius: 8px;
 
-}
+    background: linear-gradient(
+      270deg,
+rgb(158, 176, 218),
 
+      #64748b,
+rgb(200, 211, 238),
+      #3b82f6
+    );
+    background-size: 300% 60%;
+    animation: slideBorder 3s linear infinite;
 
-`
+    box-shadow: 0 0 26px #3b82f6, 0 0 50px #64748b;
+  }
+
+  filter: drop-shadow(0 0 29px #3b82f6);
+`;

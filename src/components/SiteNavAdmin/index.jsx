@@ -1,5 +1,5 @@
 import { NavLinks } from "./navLinks"
-import Logo from '../../assets/logo.svg'
+import Logo from '../../assets/original.jpeg'
 import { SignOut } from "@phosphor-icons/react"
 
 

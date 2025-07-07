@@ -59,7 +59,7 @@ export function CartResume() {
           setProvincia(addr.state || "");
           setLogradouro(addr.road || addr.pedestrian || "");
           setBairro(addr.suburb || addr.neighbourhood || addr.hamlet || "");
-          setDeliveryTax(1500);
+          setDeliveryTax(1400);//tem q tirar e colocar o frete de acorddo com o lugar
         })
         .catch(() => {
           toast.error("Código postal inválido para Argentina.");
@@ -86,65 +86,72 @@ export function CartResume() {
       .replace(/^(\d{2})(\d{4,5})(\d{4})$/, "($1) $2-$3");
   }
 
+  // ✅ Nova função de DNI com máscara em ponto
   function aplicarMascaraDNI(valor) {
-    return valor
-      .replace(/\D/g, "")
-      .replace(/^(\d{1,2})(\d{3})(\d{3})$/, "$1.$2.$3");
+    const digits = valor.replace(/\D/g, "").slice(0, 8);
+
+    if (digits.length <= 7) {
+      return digits.replace(/^(\d{1,2})(\d{3})(\d{2,3})$/, "$1.$2.$3");
+    } else {
+      return digits.replace(/^(\d{2})(\d{3})(\d{3})$/, "$1.$2.$3");
+    }
   }
 
   const enderecoCompletoPreenchido =
     logradouro && bairro && cidade && provincia;
+const submitOrder = async () => {
+  if (!email || !email.includes("@"))
+    return toast.error("Ingresa un e-mail válido.");
+  if (!nome.trim())
+    return toast.error("Ingresa tu nombre completo.");
+  if (!telefone.trim())
+    return toast.error("Ingresa tu número de celular.");
+  if (!dni.trim()) return toast.error("Ingresa tu DNI.");
+  if (!codigoPostal.match(/^\d{4}$/))
+    return toast.error("Código postal inválido.");
+  if (!enderecoCompletoPreenchido)
+    return toast.error("Dirección incompleta.");
+  if (!numero.trim())
+    return toast.error("Ingresa el número de tu domicilio.");
+  if (deliveryTax === 0)
+    return toast.error("Calcula el envío antes de finalizar.");
+  if (cartProducts.length === 0)
+    return toast.error("Tu carrito está vacío.");
 
-  const submitOrder = async () => {
-    if (!email || !email.includes("@"))
-      return toast.error("Ingresa un e-mail válido.");
-    if (!nome.trim())
-      return toast.error("Ingresa tu nombre completo.");
-    if (!telefone.trim())
-      return toast.error("Ingresa tu número de celular.");
-    if (!dni.trim()) return toast.error("Ingresa tu DNI.");
-    if (!codigoPostal.match(/^\d{4}$/))
-      return toast.error("Código postal inválido.");
-    if (!enderecoCompletoPreenchido)
-      return toast.error("Dirección incompleta.");
-    if (!numero.trim())
-      return toast.error("Ingresa el número de tu domicilio.");
-    if (deliveryTax === 0)
-      return toast.error("Calcula el envío antes de finalizar.");
-    if (cartProducts.length === 0)
-      return toast.error("Tu carrito está vacío.");
+  const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} / ${provincia}`;
 
-    const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} / ${provincia}`;
+  const products = cartProducts.map((product) => ({
+    id: product.id,
+    quantity: product.quantity,
+    price: product.price,
+  }));
 
-    const products = cartProducts.map((product) => ({
-      id: product.id,
-      quantity: product.quantity,
-      price: product.price,
-    }));
+ const payload = {
+  products,
+  email,
+  cep: codigoPostal,
+  nome,
+  telefone,
+  cpfCnpj: dni.replace(/\D/g, ""), // está enviando o DNI limpinho
+  endereco: enderecoCompleto,
+  complemento,
+};
 
-    try {
-      const { data } = await api.post("/create-payment_intent", {
-        products,
-        email,
-        codigoPostal,
-        nome,
-        telefone,
-        dni,
-        endereco: enderecoCompleto,
-        complemento,
-      });
 
-      navigate("/checkout", { state: data });
-    } catch (err) {
-      const error = err.response?.data?.error;
-      toast.error(
-        "Error: " +
-          (Array.isArray(error)
-            ? error.join(", ")
-            : error || "Error inesperado")
-      );
-    }
-  };
+  try {
+    const { data } = await api.post("/create-payment_intent", payload);
+    navigate("/checkout", { state: data });
+  } catch (err) {
+    const error = err.response?.data?.error;
+    toast.error(
+      "Error: " +
+        (Array.isArray(error)
+          ? error.join(", ")
+          : error || "Error inesperado")
+    );
+  }
+};
+
 
   if (cartProducts.length === 0) {
     return (
@@ -166,11 +173,11 @@ export function CartResume() {
         </svg>
 
         <h2>Tu carrito está vacío.</h2>
-        
+
         <p>
-          Antes de continuar con el pago, debes agregar algunos productos a tu carrito de compras.
-          Encontrarás muchos productos interesantes en nuestra página{" "}
-          <strong>"Tienda"</strong>.
+          Antes de continuar con el pago, debes agregar algunos productos a tu
+          carrito de compras. Encontrarás muchos productos interesantes en
+          nuestra página <strong>"Tienda"</strong>.
         </p>
 
         <EmptyCartButton onClick={() => navigate("/")}>
@@ -202,7 +209,9 @@ export function CartResume() {
             type="text"
             placeholder="Celular *"
             value={telefone}
-            onChange={(e) => setTelefone(aplicarMascaraCelular(e.target.value))}
+            onChange={(e) =>
+              setTelefone(aplicarMascaraCelular(e.target.value))
+            }
           />
           <input
             type="text"

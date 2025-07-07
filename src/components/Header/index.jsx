@@ -58,7 +58,7 @@ export function Header() {
               ))}
             </div>
           </Navigation>
-
+ 
           <Options>
             <Profile>
               <UserCircle color="#636262" size={24} />

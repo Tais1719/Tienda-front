@@ -15,8 +15,8 @@ export const EmptyCart = styled.div`
 `
 
 export const ProductImage = styled.img`
-  width: 84px;
-  height: 124px;
+  width: 134px;
+  height: 144px;
   object-fit: cover;
   border-radius: 4px;
 `
