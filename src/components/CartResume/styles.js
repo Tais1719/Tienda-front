@@ -2,51 +2,99 @@ import styled from "styled-components";
 import { Button as DefaultButton } from "../../Button";
 
 export const Container = styled.div`
-  width: 100%;
-  max-width: 720px;
-  margin: 10px auto;
-  padding: 0 10px;
+  width: 90%;
+  max-width: 580px;
+  position: fixed;
+  top: 108px;
+  left: 77%;
+  transform: translateX(-50%);
+  background-color: #f3f3f3ff;
+  border-radius: 10px;
   font-family: Arial, sans-serif;
+   padding: 10px; /* ESPAÇO INTERNO: deixa conteúdo longe das bordas */
 
   .title {
-    font-size: 24px;
+    font-size: 15px;
     font-weight: 700;
     color: #3b5672;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     text-align: center;
   }
 
   .linha-flex {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 0.3rem;
 
     input {
       flex: 1;
+      min-width: 0;  
+      background: none;
+      border: none;
+      border-bottom: 1px solid #dbd8d8ff;
+      color: #1d252cff;
+      padding: 1px;
+      font-size: 13px;
+      font-weight: 500;
+      outline: none;
+
+
+      &:focus,
+      &:active {
+        border-bottom-color: #ccc;
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #999;
+      }
     }
   }
 
   .container-bottom {
-    margin-top: 10px;
-    margin-right: 20px;
+    margin-top: 20px;
     font-size: 14px;
-    color: #222;
+    color: #6f6666ff;
 
     .linha-valor {
-      margin-left: 20px;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .total {
+      color: #1b1a1aff;
       font-size: 18px;
       font-weight: 700;
       border-top: 1px solid #444;
       padding-top: 6px;
       margin-top: 6px;
-      margin-left: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .title {
+      font-size: 20px;
+    }
+
+    .linha-flex {
+      flex-direction: column;
+
+      input {
+        &:focus,
+        &:active {
+          border-bottom-color: #ccc;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+    .title {
+      font-size: 18px;
     }
   }
 `;
@@ -54,89 +102,140 @@ export const Container = styled.div`
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 8px;
 
-  input {
-    padding: 8px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    color: #484848;
-    outline: none;
-    background-color: #fdfdfd;
-    transition: border-color 0.2s ease;
+  .linha-flex {
+    display: flex;
+    align-items: baseline;
 
-    &:focus {
-      border-color: #1a73e8;
-      background-color: #fff;
-    }
+    label {
+      font-size: 14px;
+      color: #33373b;
+      font-weight: 600;
+      white-space: nowrap;
+      margin: 0;
+    } 
 
-    &::placeholder {
-      color: #999;
-      font-weight: 400;
+    input {
+      background: none;
+      border: none;
+      border-bottom: 1px solid #ccc; /* linha só no input */
+      font-size: 14px;
+      font-weight: 500;
+      color: #484848;
+      outline: none;
+      padding: 0;
+      margin-left: 10px; /* pequeno espaço entre label e texto digitado */
+      width: auto; /* linha acompanha o texto, não ocupa 100% */
+
+      &::placeholder {
+        color: #999;
+      }
+
+      &:focus {
+        border-bottom-color: #3b5672;
+      }
     }
   }
 `;
 
 export const EnderecoDetalhado = styled.div`
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 
   label {
     font-size: 13px;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin: 6px 0 2px;
     color: #2a2a2a;
   }
 
+
   input {
-    width: 100%;
-    padding: 8px 10px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 4px;
     font-size: 14px;
     font-weight: 500;
     color: #484848;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #f9f9f9;
     outline: none;
+    margin-bottom: 6px;
 
-    &:focus {
-      border-color: #1a73e8;
-      background-color: #fff;
+    &:focus,
+    &:active {
+      border-bottom-color: #ccc;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #999;
     }
   }
 
   .linha-flex {
     display: flex;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 
     > div.input-pequeno {
       flex: 1;
       display: flex;
       flex-direction: column;
+
+      input {
+        min-width: 0;
+
+        &:focus,
+        &:active {
+          border-bottom-color: #ccc;
+          outline: none;
+        }
+      }
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+
+      &:focus,
+      &:active {
+        border-bottom-color: #ccc;
+        outline: none;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .linha-flex {
+      flex-direction: column;
     }
   }
 `;
-
-export const LinhaHorizontal = styled.hr`
+ export const LinhaHorizontal = styled.hr`
   border: none;
   height: 1px;
-  background-color: #ccc;
-  margin: 20px 0;
+  background-color: #3b5672;
+  margin: 16px 0;
+
+  width: 0;
+  opacity: 0;
+
+  &.ativo {
+    width: 100%;
+    opacity: 1;
+  }
 `;
 
-export const EmptyCartContainer = styled.div`
-  width: 100vw;
-  min-height: 100vh;
-  padding: 20px 20px 0; /* espaço acima */
 
+export const EmptyCartContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  margin-left: 60vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centraliza horizontalmente */
-
+  align-items: center;
   font-family: Arial, sans-serif;
   text-align: center;
 
@@ -158,11 +257,21 @@ export const EmptyCartContainer = styled.div`
     line-height: 1.5;
     word-break: break-word;
   }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
 `;
 
 export const EmptyCartButton = styled(DefaultButton)`
   margin-top: 20px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   font-size: 16px;
   border-radius: 50px;
   background-color: #60a5fa;
@@ -174,5 +283,10 @@ export const EmptyCartButton = styled(DefaultButton)`
 
   &:hover {
     background-color: #3b82f6;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    font-size: 14px;
   }
 `;

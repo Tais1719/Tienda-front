@@ -164,8 +164,7 @@ export function EditProduct() {
           }}
         >
           <div 
-            style={{
-              backgroundColor: 'white',
+            style={{ 
               padding: '20px',
               borderRadius: '5px',
               width: '300px',

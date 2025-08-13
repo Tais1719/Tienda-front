@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 
 export const Container = styled.div`
-background-color: red;
-margin-left:250px;
+
+margin-right:90px;
+margin-left:90px;
 
 
 `;

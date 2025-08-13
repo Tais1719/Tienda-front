@@ -1,68 +1,74 @@
-import styled from 'styled-components'
-
-export const EmptyCart = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 20px;
-  color: #666;
-
-  p {
-    margin-top: 16px;
-    font-size: 18px;
-    font-weight: 500;
-  }
-`
+// Product styles
+import styled from 'styled-components';
 
 export const ProductImage = styled.img`
-  width: 134px;
-  height: 144px;
+
+  width: 110px;
+  height: 120px;
   object-fit: cover;
   border-radius: 4px;
-`
+  display: block;
+`;
 
 export const ProductTotalPrice = styled.span`
   font-weight: 600;
-`
+
+  font-size: 13px;
+  padding: 1px 8px;
+  border-radius: 4px;
+  display: inline-block;
+`;
 
 export const ButtonGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
+
+  padding: 1px;
+  border-radius: 4px;
 
   button {
-    width: 32px;
-    height: 32px;
-    background: #f3f4f6;
+    width: 2px;
+    height: 24px;
+     padding:10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 18px;
-    transition: background 0.2s, transform 0.1s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       background: #e5e7eb;
     }
-
     &:active {
       transform: scale(0.95);
     }
   }
 
   span {
-    min-width: 24px;
-    text-align: center;
+    background-color: #8b8589;
+    margin:20px;
+    color: #fff;
+    min-width: 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 600;
+    font-size: 13px;
+    border-radius: 4px;
   }
-`
+`;
 
 export const TrashImage = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   transition: opacity 0.2s;
 
   &:hover {
     opacity: 0.7;
   }
-`
+`;

@@ -22,4 +22,4 @@ button, a{
 
 
 `
-export default globalStyles
+export default globalStyles;

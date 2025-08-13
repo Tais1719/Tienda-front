@@ -4,10 +4,11 @@ import TrashIcon from '../../assets/trash.svg'
 import { FormatPrice } from '../../utils/formatPrice'
 import {
   ButtonGroup,
-  EmptyCart,
+   
   ProductImage,
   ProductTotalPrice,
   TrashImage,
+
 } from './styles'
 import useAppStore from '../../store/useAppStore'
 
