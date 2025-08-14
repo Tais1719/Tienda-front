@@ -19,9 +19,11 @@ export function CardProduct ({product }) {
         alt={product.name} 
         onClick={handleImageClick} // Quando a imagem for clicada, chama handleImageClick
       />
-      <div>
-        <p>{product.name}</p>
-        <strong>{product.CurrencyValue}</strong>
+      <div style={{ display:'flex', alignContent:'center', flexDirection: 'column'}}>
+        <div style={{height:70, alignContent:'center'}}>
+        <p style={{textAlign:'center'}}>{product.name}</p>
+        </div>
+        <strong style={{textAlign:'center'}}>{product.CurrencyValue}</strong>
       </div>
       <CardButton onClick={() => putProductInCart(product)} />
     </Container>
