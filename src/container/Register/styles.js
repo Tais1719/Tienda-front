@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Background from '../../assets/login1.jpg'
-import BackgroundLogin from '../../assets/background-login.svg'
 import { Link as ReactLink } from "react-router-dom";
 
 export const Container = styled.div`
@@ -45,7 +44,7 @@ background-color: #ece9e9ff;
 
 p{
   
-color: #fff;
+color: #373850ff;
 font-size: 18px;
 font-weight: 800;
 
@@ -54,7 +53,7 @@ font-weight: 800;
 
 a{
   text-decoration: underline;
-  color:rgba(10, 250, 230, 0.69) ;
+  color: #1a25bbff; ;
   
   
   
@@ -78,7 +77,7 @@ export const Form = styled.form`
 display: flex;
 flex-direction: column;
 gap: 20px;
-padding: 20px;
+padding: 10px;
 width: 100%;
 max-width: 400px;
 
@@ -88,7 +87,7 @@ export const InputContainer = styled.div`
 
 display: flex;
 flex-direction: column;
-gap: 5px;
+gap: 1px;
 width: 100%;
 
 

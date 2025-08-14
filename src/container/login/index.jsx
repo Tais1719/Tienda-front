@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast,} from 'react-toastify'
 import { api } from "../../services/api";
 import { useUser } from "../../hooks/UserContent";
-import Logo from "../../assets/logo.svg";
+
 import { Button } from "../../Button";
 
 import {
@@ -82,12 +82,12 @@ export function Login() {
   return (
     <Container>
       <LeftContainer>
-        <img src={Logo} alt="Logo do Dev Burguer" />
+        
       </LeftContainer>
 
       <RightContainer>
         <Title>
-          Olá, seja bem-vindo ao <span>Dev</span>Burguer!
+          Olá, seja bem-vindo ao <span>Origen</span>  Fashion!
           <br />
           Acesse com<span> seu login e senha.</span>
         </Title>
