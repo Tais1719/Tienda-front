@@ -14,7 +14,7 @@ export function Router() {
         <Route path='/' element={<Home />} />
         <Route path='/cardapio' element={<Menu />} />
         <Route path='/carrinho' element={<Cart />} />
-        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/checkout' element={<Checkout />} /> 
         <Route path='/complete' element={<CompletePaymentWrapper />} />
         <Route path='/produto/:id' element={<ProductDetailsPage />} /> {/* A rota correta para o produto */}
       </Route>
@@ -27,7 +27,7 @@ export function Router() {
       </Route>
 
       <Route path='/login' element={<Login />} />
-      <Route path='/cadastro' element={<Register />} />
+      <Route path='/cadastro' element={<Register />} /> 
     </Routes>
   );
 }

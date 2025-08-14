@@ -1,7 +1,8 @@
-export const FormatPrice = (value) => { 
-    return new Intl.NumberFormat('pt-BR', { 
-      style: 'currency',
-      currency: 'BRL'    
-    }).format(value / 100);
-  }
-  
+export const FormatPrice = (value) => {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    currencyDisplay: 'narrowSymbol',
+    minimumFractionDigits: 2,
+  }).format(value / 1);
+};

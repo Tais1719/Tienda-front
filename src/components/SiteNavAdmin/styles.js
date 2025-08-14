@@ -14,8 +14,9 @@ align-items: center;
 
 
 img { 
-    width: 60%;
+    width: 70%;
     margin: 40px 0;
+  border-radius:50%;
 } 
 
 `;

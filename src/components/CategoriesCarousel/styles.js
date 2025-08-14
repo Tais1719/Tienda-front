@@ -1,101 +1,62 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
+// Animação de gradiente arco-íris no texto
+const gradientMove = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+`;
+
+// Animação de piscar para o subtítulo
+const blink = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+`;
 
 export const Container = styled.div`
- width: 98vw; /* Ocupa toda a largura da viewport */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+`;
 
-.carousel-item{
-    padding-right: 40px;
+export const HeaderText = styled.div`
+  text-align: center;
+  padding: 20px 20px;
+`;
 
-}
-.react-multiple-carousel__arrow--left {
-    left: 10px;
-  top: 10px;
+export const Title = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1.5px;
+  background: linear-gradient(-45deg, #ff6ec4, #7873f5,#0a1172, #C4FCEF);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ${gradientMove} 4s ease infinite;
+`;
 
-}
+export const Subtitle = styled.h2`
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 10px 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: crimson;
+  animation: ${blink} 1.2s infinite;
+`;
 
-
- 
-.react-multiple-carousel__arrow--right {
-right: 50px;
-  top:10px;
-}
-
-padding-left: 40px;
-
-` 
-
-
-export const Title = styled.h2`
-font-size: 32px;
-color:  ${(props) =>props.theme.blue};
-font-weight: 900;
-padding-bottom: 12px;
-position: relative;
-text-align: center;
-margin-bottom: 40px;
-margin-top: 20px;
-
-&::after{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 55px;
-    height: 4px;
-    background:  ${(props) =>props.theme. darkBlue};
-    left: 50%;
-transform: translateX(-28px);
-
-}
-
-
-`
-
-export const ContainerItems = styled.div`
-background: url('${(props)=> props.imageUrl }');
-background-position: center;
-background-size:cover;
-border-radius: 20px;
-display: flex;
-align-items: center;
-padding: 20px 10px;
-width: 100%;
-height: 250px;
- 
-p{
-  color: #ffffff;
-background-color:rgba(0,0,0,0.5);
-padding: 10px 30px;
-border-radius: 30px;
-font-size: 22.5px;
-font-weight: bold;
-margin-top:50px;
-
-
- 
-
-
-}
-
-`
-
-export const CategoryButton = styled(Link)`
-
-
-color: #ffffff;
-background-color:rgba(0,0,0,0.5);
-padding: 10px 30px;
-border-radius: 30px;
-font-size: 22.5px;
-font-weight: 500;
-margin-top:50px;
-text-decoration: none;
-
-
-&:hover{
- background-color:#778899;
-
-}
-
-`
+export const BannerImage = styled.img`
+  width: 100vw;
+  height: 70vh;
+  display: block;
+`;

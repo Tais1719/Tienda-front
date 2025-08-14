@@ -13,11 +13,10 @@ export function Menu() {
   const queryParams = new URLSearchParams(search);
 
   const [activeCategory, setActiveCategory] = useState(() => {
-    const categoryId = +queryParams.get("categorias"); // <-- deve ter "s"
+    const categoryId = +queryParams.get("categorias");
     return isNaN(categoryId) ? 0 : categoryId;
   });
 
-  // Carregar produtos
   useEffect(() => {
     async function loadProducts() {
       try {
@@ -28,14 +27,13 @@ export function Menu() {
         }));
         setProducts(formatted);
       } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
+        console.error("Error al cargar los productos:", error);
       }
     }
 
     loadProducts();
   }, []);
 
-  // Filtrar produtos ao mudar categoria
   useEffect(() => {
     if (activeCategory === 0) {
       setFilteredProducts(products);
@@ -47,7 +45,6 @@ export function Menu() {
     }
   }, [products, activeCategory]);
 
-  // Reagir à mudança na URL (ex: clique no link do Header)
   useEffect(() => {
     const categoryId = +queryParams.get("categorias");
     setActiveCategory(isNaN(categoryId) ? 0 : categoryId);
@@ -55,16 +52,11 @@ export function Menu() {
 
   return (
     <main>
-      <Container>
-        <Banner>
-          <h1>
-            <br />
-            Moda que te define
-            <br />
-            calidad que, que te <span>Acompaña!</span>
-          </h1>
-        </Banner>
+      <Banner>
+        <h1>Estilo que te representa. Descubra a nova coleção!</h1>
+      </Banner>
 
+      <Container>
         <ProductsContainer>
           {filteredProducts.map((product) => (
             <CardProduct product={product} key={product.id} />

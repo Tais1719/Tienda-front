@@ -1,61 +1,32 @@
-import { useEffect, useState } from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { api } from '../../services/api';
-import { Container, Title, ContainerItems, CategoryButton } from './styles';
+import { useState, useEffect } from 'react';
+import { Container, HeaderText, Title, Subtitle, BannerImage } from './styles';
+import banner1 from '../../assets/banner1.png';
+import banner2 from '../../assets/banner2.png';
+import banner3 from '../../assets/banner3.png';
+import banner4 from '../../assets/banner4.png';
+
 
 export function CategoriesCarousel() {
-  const [categories, setCategories] = useState([]);
+  const images = [banner1, banner2,banner3,banner4 ];
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    async function loadCategories() {
-      try {
-        const { data } = await api.get('/categories');
-        setCategories(data);
-      } catch (error) {
-        console.error('Erro ao carregar categorias:', error);
-      }
-    }
-
-    loadCategories();
-  }, []);
-
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1,
-    },
-  };
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <Container>
-      <Title>Categorias</Title>
- 
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        partialVisible={false}
-        itemClass="carousel-item"
-      >
-        {categories.map((category) => (
-          <ContainerItems key={category.id} imageUrl={category.url}>
-            <CategoryButton to={`/cardapio?categorias=${category.id}`}>
-              {category.name}
-            </CategoryButton>
-          </ContainerItems>
-        ))}
-      </Carousel>
+      <HeaderText>
+        <Title> “Precios tan buenos que cuesta resistir” </Title>
+        <Subtitle>Ofertas increíbles solo por tiempo limitado.</Subtitle>
+      </HeaderText>
+      <BannerImage
+        src={images[currentIndex]}
+        alt="Banner promocional"
+      />
     </Container>
   );
 }

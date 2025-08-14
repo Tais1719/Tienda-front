@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import Background from '../../assets/background.svg'
-import BackgroundLogin from '../../assets/background-login.svg'
+import Background from '../../assets/login1.jpg'
 import { Link as ReactLink } from "react-router-dom";
 
 export const Container = styled.div`
@@ -38,15 +37,14 @@ flex-direction: column;
 height: 100%;
 width:100%;
 max-width: 50%;
-background: url('${BackgroundLogin}');
-background-color: #1e1e1e;
+background-color: #ece9e9ff;
 
 
 
 
 p{
   
-color: #fff;
+color: #373850ff;
 font-size: 18px;
 font-weight: 800;
 
@@ -55,7 +53,7 @@ font-weight: 800;
 
 a{
   text-decoration: underline;
-  color:rgba(10, 250, 230, 0.69) ;
+  color: #1a25bbff; ;
   
   
   
@@ -68,8 +66,8 @@ a{
 export const Title = styled.h2`
 
 font-family: "Road Rage", serif;
-  font-size: 40px;
-  color: ${(props) =>props.theme.darkBlue};
+  font-size: 50px;
+  color: ${(props) =>props.theme.navy};
   
 
 
@@ -79,7 +77,7 @@ export const Form = styled.form`
 display: flex;
 flex-direction: column;
 gap: 20px;
-padding: 20px;
+padding: 10px;
 width: 100%;
 max-width: 400px;
 
@@ -89,7 +87,7 @@ export const InputContainer = styled.div`
 
 display: flex;
 flex-direction: column;
-gap: 5px;
+gap: 1px;
 width: 100%;
 
 
@@ -105,13 +103,13 @@ padding: 0 16px;
  
  label{
     font-size: 18px;
-   color: #fff;
+   color: #15271eff;
     font-weight: 600;
 
 }
 p{
   font-size: 14px;
- color:#cf3057;
+ color:red;
 line-height: 80%;
 font-family: 600;
 height:10px;

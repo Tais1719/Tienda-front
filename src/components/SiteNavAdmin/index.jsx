@@ -1,5 +1,5 @@
 import { NavLinks } from "./navLinks"
-import Logo from '../../assets/logo.svg'
+import Logo from '../../assets/origem.png'
 import { SignOut } from "@phosphor-icons/react"
 
 
@@ -15,7 +15,7 @@ export function SiteNavAdmin(){
 
     return(
         <Container>
-             <img src={ Logo } alt="Logo DevBurger"/>
+             <img src={ Logo } alt="logo"/>
              <NavLinkContainer>
              { NavLinks.map((link) =>(
 

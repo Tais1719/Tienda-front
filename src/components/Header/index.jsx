@@ -58,7 +58,7 @@ export function Header() {
               ))}
             </div>
           </Navigation>
-
+ 
           <Options>
             <Profile>
               <UserCircle color="#636262" size={24} />
@@ -68,21 +68,7 @@ export function Header() {
               </div>
             </Profile>
 
-            <SearchForm
-              onSubmit={(e) => {
-                e.preventDefault()
-                if (!searchTerm.trim()) return
-                navigate(`/buscar?query=${encodeURIComponent(searchTerm.trim())}`)
-              }}
-            >
-              <MagnifyingGlass size={18} />
-              <input
-                type="text"
-                placeholder="Buscar..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </SearchForm>
+            
 
             <LinkContainer>
               <div style={{ position: 'relative' }}>

@@ -3,94 +3,117 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Image } from "@phosphor-icons/react";
 import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Container, Form, InputGroup, Label, Input, LabelUpload, Select, SubmitButton, ErrorMessage, Containercheckbox,DeletarButton} from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { toast } from "react-toastify";
+import Select from "react-select";
+import {
+  Container,
+  Form,
+  InputGroup,
+  Label,
+  Input,
+  LabelUpload,
+  SubmitButton,
+  ErrorMessage,
+  Containercheckbox,
+  DeletarButton
+} from "./styles";
 
-// Validação do formulário
+// Opções em espanhol
+const SIZE_OPTIONS = [
+  { label: "s", value: "Pequeño" },
+  { label: "M", value: "Mediano" },
+  { label: "L", value: "Grande" },
+  { label: "xl", value: "Extra Gande" }
+];
+
+const COLOR_OPTIONS = [
+  { label: "Blanco", value: "white" },
+  { label: "Negro", value: "black" },
+  { label: "Azul", value: "blue" },
+  { label: "Rojo", value: "red" },
+  { label: "Verde", value: "green" }
+];
+
+// Schema de validação
 const schema = yup.object({
-  name: yup.string().required('Digite o Nome do Produto'),
-  price: yup.number().positive().required('Digite o preço do produto').typeError('Digite o preço do produto'),
-  category: yup.object().required('Escolha uma Categoria'),
+  name: yup.string().required("Digite o nome do produto"),
+  price: yup.number().positive().required("Digite o preço do produto"),
+  category: yup.object().required("Escolha uma Categoria"),
   offer: yup.bool(),
+  sizes: yup.array().of(yup.object()).min(1, "Selecione pelo menos um tamanho"),
+  colors: yup.array().of(yup.object()).min(1, "Selecione pelo menos uma cor"),
+  description: yup.string(),
 });
 
-export function EditProduct() { 
+export function EditProduct() {
   const [fileName, setFileName] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [showModal, setShowModal] = useState(false);  // Estado para mostrar o modal de confirmação
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { state: { product } } = useLocation();
-
-  useEffect(() => {
-    async function loadCategories(){
-      const { data } = await api.get('/categories');
-      setCategories(data);
-    }
-    loadCategories();
-  }, []);
 
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    async function loadCategories() {
+      const { data } = await api.get("/categories");
+      setCategories(data);
+    }
+    loadCategories();
+  }, []);
+
   const onSubmit = async (data) => {
     const productFormData = new FormData();
-
-    productFormData.append('name', data.name);
-    productFormData.append('price', data.price * 100);  // Multiplicado por 100 porque o backend pode estar esperando em centavos.
-    productFormData.append('category_id', data.category.id);
-    productFormData.append('file', data.file[0]);
-    productFormData.append('offer', data.offer);
+    productFormData.append("name", data.name);
+    productFormData.append("price", data.price * 100); // backend espera centavos
+    productFormData.append("category_id", data.category.id);
+    productFormData.append("offer", data.offer);
+    productFormData.append("description", data.description);
+    productFormData.append("sizes", JSON.stringify(data.sizes.map(s => s.value)));
+    productFormData.append("colors", JSON.stringify(data.colors.map(c => c.value)));
+    productFormData.append("file", data.file[0]);
 
     await toast.promise(api.put(`/products/${product.id}`, productFormData), {
-      pending: 'Editando o Produto...',
-      success: 'Produto editado com sucesso!',
-      error: 'Falha ao editar o produto, tente novamente',
+      pending: "Editando o Produto...",
+      success: "Produto editado com sucesso!",
+      error: "Falha ao editar o produto, tente novamente",
     });
-    
+
     setTimeout(() => {
-      navigate('/admin/produtos');
-    }, 3000);
+      navigate("/admin/produtos");
+    }, 2000);
   };
 
-  // Função para lidar com a exclusão do produto
   const handleDelete = async () => {
     try {
       await toast.promise(api.delete(`/products/${product.id}`), {
-        pending: 'Excluindo o Produto...',
-        success: 'Produto excluído com sucesso!',
-        error: 'Falha ao excluir o produto, tente novamente',
+        pending: "Excluindo o Produto...",
+        success: "Produto excluído com sucesso!",
+        error: "Falha ao excluir o produto, tente novamente",
       });
-      navigate('/admin/produtos');
+      navigate("/admin/produtos");
     } catch (error) {
-      console.error('Erro ao excluir o produto:', error);
-      toast.error('Erro ao excluir o produto!');
+      console.error("Erro ao excluir o produto:", error);
+      toast.error("Erro ao excluir o produto!");
     }
   };
 
   return (
     <Container>
-
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputGroup>
           <Label>Nome</Label>
-          <Input
-            type="text"
-            {...register("name")}
-            defaultValue={product.name}
-          />
+          <Input type="text" {...register("name")} defaultValue={product.name} />
           <ErrorMessage>{errors?.name?.message}</ErrorMessage>
         </InputGroup>
 
         <InputGroup>
           <Label>Preço</Label>
-          <Input
-            type="number"
-            {...register("price")}
-            defaultValue={product.price / 100}
-          />
+          <Input type="number" {...register("price")} defaultValue={product.price / 100} />
           <ErrorMessage>{errors?.price?.message}</ErrorMessage>
         </InputGroup>
 
@@ -103,7 +126,7 @@ export function EditProduct() {
               accept="image/png, image/jpeg"
               onChange={(value) => {
                 setFileName(value.target.files[0]?.name);
-                register('file').onChange(value);
+                register("file").onChange(value);
               }}
             />
             {fileName || "Upload do Produto"}
@@ -125,7 +148,6 @@ export function EditProduct() {
                 getOptionValue={(category) => category.id}
                 placeholder="Categorias"
                 menuPortalTarget={document.body}
-                defaultValue={product.category}
               />
             )}
           />
@@ -134,72 +156,68 @@ export function EditProduct() {
 
         <InputGroup>
           <Containercheckbox>
-            <input
-              type="checkbox"
-              defaultChecked={product.offer}
-              {...register("offer")}
-            />
+            <input type="checkbox" defaultChecked={product.offer} {...register("offer")} />
             <Label>Produto em Oferta</Label>
           </Containercheckbox>
+        </InputGroup>
+
+        <InputGroup>
+          <Label>Tamanhos</Label>
+          <Controller
+            name="sizes"
+            control={control}
+            defaultValue={product.sizes?.map(s => ({ label: s, value: s })) || []}
+            render={({ field }) => <Select {...field} options={SIZE_OPTIONS} isMulti placeholder="Selecione tamanhos" />}
+          />
+          <ErrorMessage>{errors?.sizes?.message}</ErrorMessage>
+        </InputGroup>
+
+        <InputGroup>
+          <Label>Cores</Label>
+          <Controller
+            name="colors"
+            control={control}
+            defaultValue={product.colors?.map(c => ({ label: c, value: c })) || []}
+            render={({ field }) => <Select {...field} options={COLOR_OPTIONS} isMulti placeholder="Selecione cores" />}
+          />
+          <ErrorMessage>{errors?.colors?.message}</ErrorMessage>
+        </InputGroup>
+
+        <InputGroup>
+          <Label>Descrição</Label>
+          <textarea {...register("description")} rows={4} defaultValue={product.description} />
+          <ErrorMessage>{errors?.description?.message}</ErrorMessage>
         </InputGroup>
 
         <SubmitButton>Editar Produto</SubmitButton>
         <DeletarButton type="button" onClick={() => setShowModal(true)}>
           Deletar Produto
         </DeletarButton>
-        
       </Form>
 
-     
-      
-
-      {/* Modal de Confirmação */}
       {showModal && (
-        <div 
+        <div
           style={{
-            position: 'fixed',
-            top: '0', left: '0', right: '0', bottom: '0',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex", justifyContent: "center", alignItems: "center"
           }}
         >
-          <div 
-            style={{
-              backgroundColor: 'white',
-              padding: '20px',
-              borderRadius: '5px',
-              width: '300px',
-              textAlign: 'center',
-            }}
-          >
+          <div style={{ padding: 20, borderRadius: 5, width: 300, textAlign: "center" }}>
             <h3>Tem certeza que deseja excluir este produto?</h3>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-              <button 
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <button
                 onClick={handleDelete}
-                style={{
-                  backgroundColor: 'green',
-                  color: 'white',
-                  padding: '10px 20px',
-                  borderRadius: '5px',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
+                style={{ backgroundColor: "green", color: "white", padding: "10px 20px", borderRadius: 5, border: "none", cursor: "pointer" }}
               >
                 Sim
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                style={{
-                  backgroundColor: 'red',
-                  color: 'white',
-                  padding: '10px 20px',
-                  borderRadius: '5px',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              
+                style={{ backgroundColor: "red", color: "white", padding: "10px 20px", borderRadius: 5, border: "none", cursor: "pointer" }}
               >
-           nao
+                Não
               </button>
             </div>
           </div>

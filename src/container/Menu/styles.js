@@ -1,57 +1,40 @@
 import styled from "styled-components";
-import BannerHamburger from '../../assets/loja4.jpg'
-
-
-import Background from '../../assets/background.jpg'
 import { Link } from "react-router-dom";
 
-
-
 export const Container = styled.div`
-
-width: 100%;
-min-height: 100vh;
-background-color:rgb(95, 231, 10);
- background: linear-gradient(
-      rgba(174, 219, 191, 0.5),
-      rgba(113, 120, 115, 0.5)
-    ),
-    url('${Background}');
-   
+  width: 100%;
+  margin-top: 50px;
+  min-height: 100vh;
+  background: linear-gradient(135deg,rgb(204, 220, 235) 0%,rgb(235, 240, 236) 100%);
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
-
-
-
-
-
-h1{
-   font-family: "Kapakana", cursive;
+  h1 {
+    font-family: "Kapakana", cursive;
     font-size: 60px;
     line-height: 67px;
-    color:rgb(211, 246, 246);
+    color: rgb(54, 54, 54); /* Texto mais escuro para melhor contraste */
     position: absolute;
-   left:5%;
+    left: 5%;
     top: 30%;
+  }
 
-}
-span{
-display: block;
-font-family: "Kapakana", cursive;
-color:#10b981;
-font-size: 50px;
+  span {
+    display: block;
+    font-family: "Kapakana", cursive;
+    color: #10b981;
+    font-size: 50px;
+  }
+`;
 
-}
-`
 
 export const Banner = styled.div`
 
 display: flex;
 justify-content: center;
-height: 400px;
+
 position: relative;
-background: url('${BannerHamburger}')no-repeat;
-background-color: #1f1f1f;
 background-position: center;
 background-size: cover;
 
@@ -74,12 +57,13 @@ margin-top: 30px;
 `
 export const ProductsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Desktop */
+  grid-template-columns: repeat(4, 1fr);
   padding: 20px;
   gap: 50px;
   justify-content: center;
   max-width: 1200px;
-  margin: 50px auto;
+ margin: 50px auto;
+ margin: 30px auto 0 auto;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr); /* Tablets */

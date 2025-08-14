@@ -37,7 +37,7 @@ export function Products() {
             if (offer) {
               return <CheckCircle  color="green" size='28'/>;
             } else {
-              return <XCircle color="red"size='28'/>;
+              return <XCircle color="red"size='28'/>; 
             }
           }
           

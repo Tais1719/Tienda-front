@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { toast,} from 'react-toastify'
 import { api } from "../../services/api";
 
-import Logo from "../../assets/logo.svg";
 import { Button } from "../../Button";
 
 //import { createGlobalStyle } from "styled-components";
@@ -84,7 +83,7 @@ export function Register() {
   return (
     <Container>
       <LeftContainer>
-        <img src={Logo} alt="Logo do Dev Burguer" />
+   
       </LeftContainer>
 
       <RightContainer>
