@@ -3,6 +3,6 @@ export const FormatPrice = (value) => {
     style: 'currency',
     currency: 'ARS',
     currencyDisplay: 'narrowSymbol',
-    minimumFractionDigits: 3,
+    minimumFractionDigits: 2,
   }).format(value / 1);
 };
