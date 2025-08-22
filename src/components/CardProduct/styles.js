@@ -11,6 +11,7 @@ background-color: red;
   background-color: rgba(237, 238, 233, 1);
   width: 100%;
   max-width: 400px;
+  margin-bottom: 30px;
   position: relative; /* necessário para posicionar as setas */
 
   p {
@@ -56,8 +57,9 @@ export const Content = styled.div`
 `;
 
 export const CardImage = styled.img`
-  height: 150px;
-  width: 120px;
+
+  height: 120px;
+  width: 150px;
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
@@ -67,59 +69,3 @@ export const CardImage = styled.img`
     width: 80px;
   }
 `; 
-
-export const CardButton = styled.button`
-  margin: 0 auto;
-  display: block;
-  padding: 10px 20px;
-  background-color: #ff8c05;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-
-  &:hover {
-    background-color: #e07b04; 
-  }
-
-  @media (max-width: 430px) {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-`;
-
-/* Botões de setas para trocar imagem */
-export const ArrowButton = styled.button`
-  position: absolute;
-  top: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  font-size: 20px;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-50%);
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-  }
-
-  ${({ left }) =>
-    left &&
-    css`
-      left: 10px;
-    `}
-
-  ${({ right }) =>
-    right &&
-    css`
-      right: 10px;
-    `}
-`;

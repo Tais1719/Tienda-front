@@ -70,7 +70,7 @@ export const Title = styled.h2`
   background: linear-gradient(
     
 
-    #748d72ff 90%       /* cinza azulado suave */
+    #1ab46cff 90%       /* cinza azulado suave */
   );
   background-size: 20% 100%;
   
