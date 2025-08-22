@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 50px;
-  min-height: 100vh;
-  background: linear-gradient(135deg,rgb(204, 220, 235) 0%,rgb(235, 240, 236) 100%);
+  margin-top: 130px;
+  min-height: 00vh;
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -204,18 +204,18 @@ export function EditProduct() {
             display: "flex", justifyContent: "center", alignItems: "center"
           }}
         >
-          <div style={{ padding: 20, borderRadius: 5, width: 300, textAlign: "center" }}>
+          <div style={{ padding: 20, borderRadius: 5, width: 300, marginRight:'390px' }}>
             <h3>Tem certeza que deseja excluir este produto?</h3>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
               <button
                 onClick={handleDelete}
-                style={{ backgroundColor: "green", color: "white", padding: "10px 20px", borderRadius: 5, border: "none", cursor: "pointer" }}
+                style={{ backgroundColor: "green", color: "white", padding: "6px 10px", borderRadius: 5, border: "none", cursor: "pointer" }}
               >
                 Sim
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                style={{ backgroundColor: "red", color: "white", padding: "10px 20px", borderRadius: 5, border: "none", cursor: "pointer" }}
+                style={{ backgroundColor: "red", color: "white", padding: "10px 10px", borderRadius: 5, border: "none", cursor: "pointer" }}
               >
                 Não
               </button>

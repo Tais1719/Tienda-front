@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerButton = styled.button`
-  background-color: #60a5fa;
+  background-color: #7aabf5ff;
   width: 100%;
   height: 42px;
   margin-top: 12px; /* espaço mais natural abaixo do conteúdo */

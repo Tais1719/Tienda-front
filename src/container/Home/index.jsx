@@ -1,28 +1,37 @@
 import { OffersCarousel, CategoriesCarousel } from "../../components";
-import { Banner, Container, Text } from "./styles";
+import { Banner, BannerImage, BannerContent, GlobalStyle } from "./styles";
+import { FaTshirt, FaShoePrints, FaUserTie } from "react-icons/fa";
+import BannerHome from '../../assets/foto.png';
 
 export function Home() {
   return (
-    <main>
-      <Banner>
-      
+    <>
+      <GlobalStyle />
+      <main >
+        <Banner>
+          <BannerImage src={BannerHome} alt="Banner" />
+          <BannerContent>
+            <h1>Viva uma vida com estilo!</h1>
+            <p>
+              Descubra nossas categorias e encontre seu estilo ideal. 
+              Qualidade premium, conforto incomparável e atitude que te define! 
+              Explore nossa coleção exclusiva e sinta a diferença em cada detalhe.
+            </p>
 
-       
-
-        {/* Frase convite */}
-        <Text>
-           Descubrí nuestras categorías y encontrá tu estilo ideal. ¡Calidad, confort y actitud!
-        </Text>
-
-       
-      </Banner>
-
-      <Container> 
+            <div className="icons">
+              <FaTshirt title="Moda Casual" />
+              <FaShoePrints title="Estilo Urbano" />
+              <FaUserTie title="Elegância Masculina" />
+            </div>
+            
+          </BannerContent>
+        </Banner>
+   
         <div>
           <CategoriesCarousel />
           <OffersCarousel />
         </div>
-      </Container>
-    </main>
+      </main>
+    </>
   );
 }

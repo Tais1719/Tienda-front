@@ -53,7 +53,7 @@ export function Menu() {
   return (
     <main>
       <Banner>
-        <h1>Estilo que te representa. Descubra a nova coleção!</h1>
+       
       </Banner>
 
       <Container>
