@@ -14,7 +14,9 @@ background: linear-gradient(
 
 
 .carousel-item{
-    padding-right: 40px;
+
+    padding-right:20px;
+    margin-left: 1px;
 
 
 } 
@@ -22,31 +24,36 @@ background: linear-gradient(
 overflow-x: hidden;
 
 
-  .react-multi-carousel-list{    
-overflow: visible;
 
-
-
+/* Permite que a seta saia do container */
+.react-multi-carousel-list {
+    overflow: visible !important;
 }
 
+/* Setas pretas sem fundo */
+.react-multiple-carousel__arrow--left,
+.react-multiple-carousel__arrow--right {
+    background: transparent !important;
+    border: none;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
 
 .react-multiple-carousel__arrow--left {
-    left:1px;
-  top:150px;
-
+    left: -1px !important; /* compensa o padding do container */
 }
 
 .react-multiple-carousel__arrow--right {
-  
-right: 40px;
-  top:140px;
-
+    right: 0 !important;
 }
 
-
-padding-left: 40px;
-padding-bottom:40px;
-
+.react-multiple-carousel__arrow--left::before,
+.react-multiple-carousel__arrow--right::before {
+    color: black !important;
+    font-size: 28px;
+}
 
 
 `
