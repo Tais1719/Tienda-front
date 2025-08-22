@@ -1,13 +1,14 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
+background-color: red;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 20px;
-  border-radius: 8px;
-  background-color: aliceblue;
+  border-radius: 5%;
+  background-color: rgba(237, 238, 233, 1);
   width: 100%;
   max-width: 400px;
   position: relative; /* necessário para posicionar as setas */
@@ -55,7 +56,7 @@ export const Content = styled.div`
 `;
 
 export const CardImage = styled.img`
-  height: 120px;
+  height: 150px;
   width: 120px;
   object-fit: cover;
   border-radius: 8px;

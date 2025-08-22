@@ -22,8 +22,7 @@ background: linear-gradient(
 overflow-x: hidden;
 
 
-  .react-multi-carousel-list{
-    
+  .react-multi-carousel-list{    
 overflow: visible;
 
 
@@ -32,15 +31,15 @@ overflow: visible;
 
 
 .react-multiple-carousel__arrow--left {
-    left: 10px;
-  top: 10px;
+    left:1px;
+  top:150px;
 
 }
 
 .react-multiple-carousel__arrow--right {
   
-right: 130px;
-  top:30px;
+right: 40px;
+  top:140px;
 
 }
 
