@@ -11,39 +11,35 @@ const fadeInDown = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`;
-
-export const StoreTitleContainer = styled.div`
+`;export const StoreTitleContainer = styled.div`
   position: fixed;
-  top: 0px;
-  left: 10px;  /* mudou de right para left */
- 
-
+  left: 10px;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 2.4rem;
   color: ${(props) => props.theme.charcoal};
   text-transform: uppercase;
   letter-spacing: 5px;
-  text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.4),
-    0 0 8px ${(props) => props.theme.taupe};
-  animation: ${fadeInDown} 0.7s ease forwards;
-  user-select: none;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4), 0 0 8px ${(props) => props.theme.taupe};
+  transition: top 0.3s ease; /* suaviza aparecimento e desaparecimento */
   z-index: 10000;
+
 `
-
-
-// Container do Header
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.darkWhite};
+  background: ${(props) =>
+    props.isHome
+      ? 'linear-gradient(rgba(126, 123, 123, 0.4),)'
+      : 'white'};
   width: 100%;
   height: 15%;
   padding: 0 96px;
   position: fixed;
-  top: 0;
+  top: 0; 
   z-index: 9999;
-`
+  transition: top 0.3s ease, background 0.3s ease;
+`;
+
+
 
 export const Content = styled.div`
   display: flex; 
