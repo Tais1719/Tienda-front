@@ -36,20 +36,23 @@ export function Header() {
 
   // Scroll só na Home
   useEffect(() => {
-    if (pathname !== '/') return; // só aplica na Home
+    if (pathname !== '/') return;
 
-    let lastScroll = 0;
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        setShowHeader(false); // scroll para baixo, esconde
+      if (window.scrollY === 0) {
+        // topo da página, mostra o header
+        setShowHeader(true);
       } else {
-        setShowHeader(true);  // scroll para cima, mostra
+        // qualquer scroll para baixo, esconde o header
+        setShowHeader(false);
       }
-      lastScroll = currentScroll;
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // verifica no carregamento inicial da página
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
@@ -58,25 +61,20 @@ export function Header() {
     navigate('/login');
   }
 
+  // Header só aparece se showHeader for true ou se não estiver na Home
+  if (pathname === '/' && !showHeader) {
+    return null;
+  }
+
   return (
     <>
-      <StoreTitleContainer
-        style={{
-      
-          top: pathname === '/' ? (showHeader ? '0' : '-120px') : '0',
-          transition: 'top 0.3s ease',
-        }}
-      >
+      <StoreTitleContainer style={{ top: '0', transition: 'top 0.3s ease' }}>
         Origen
       </StoreTitleContainer>
-<Container
-  isHome={pathname === '/'}
-  style={{
-    top: pathname === '/' ? (showHeader ? '0' : '-120px') : '0',
-  }}
->
-        <Content >
-          <Navigation >
+
+      <Container isHome={pathname === '/'} style={{ top: '0', transition: 'top 0.3s ease' }}>
+        <Content>
+          <Navigation>
             <div style={{ display: 'flex', gap: '70px' }}>
               <HeaderLink to="/" $isActive={pathname === '/'}>Home</HeaderLink>
               <HeaderLink
