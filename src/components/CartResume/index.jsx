@@ -20,16 +20,15 @@ export function CartResume() {
   const [finalPrice, setFinalPrice] = useState(0);
   const [deliveryTax, setDeliveryTax] = useState(0);
 
-  const [codigoPostal, setCodigoPostal] = useState("");
+  const [cep, setCep] = useState("");
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [dni, setDni] = useState("");
 
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
-  const [provincia, setProvincia] = useState("");
+  const [estado, setEstado] = useState("");
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
 
@@ -38,7 +37,6 @@ export function CartResume() {
   const navigate = useNavigate();
   const { cartProducts } = useCart();
 
-  // Calcula subtotal sempre que o carrinho mudar
   useEffect(() => {
     const subtotal = cartProducts.reduce(
       (acc, product) => acc + product.price * product.quantity,
@@ -47,34 +45,23 @@ export function CartResume() {
     setFinalPrice(subtotal);
   }, [cartProducts]);
 
-  // Busca endereço pelo CEP
   useEffect(() => {
-    const argCepRegex = /^\d{4}$/;
-    if (argCepRegex.test(codigoPostal)) {
-      fetch(
-        `https://nominatim.openstreetmap.org/search?postalcode=${codigoPostal}&country=Argentina&format=json&addressdetails=1`
-      )
+    const cepLimpo = cep.replace(/\D/g, "");
+    if (cepLimpo.length === 8) {
+      fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
         .then((res) => res.json())
         .then((data) => {
-          if (!data.length) throw new Error("CEP não encontrado");
+          if (data.erro) throw new Error("CEP não encontrado");
 
-          const addr = data[0].address;
-
-          setCidade(addr.city || addr.town || addr.village || "");
-          setProvincia(addr.state || "");
-          setLogradouro(addr.road || addr.street || addr.pedestrian || "");
-          setBairro(
-            addr.suburb ||
-              addr.neighbourhood ||
-              addr.hamlet ||
-              addr.village ||
-              ""
-          );
-          setDeliveryTax(1400); // define frete
-          setEnderecoCarregado(true); // endereço carregado
+          setCidade(data.localidade);
+          setEstado(data.uf);
+          setLogradouro(data.logradouro);
+          setBairro(data.bairro);
+          setDeliveryTax(20); // valor de frete fixo
+          setEnderecoCarregado(true);
         })
         .catch(() => {
-          toast.error("Código postal inválido para Argentina.");
+          toast.error("CEP inválido.");
           limparEndereco();
           setEnderecoCarregado(false);
         });
@@ -82,14 +69,14 @@ export function CartResume() {
       limparEndereco();
       setEnderecoCarregado(false);
     }
-  }, [codigoPostal]);
+  }, [cep]);
 
   function limparEndereco() {
     setDeliveryTax(0);
     setLogradouro("");
     setBairro("");
     setCidade("");
-    setProvincia("");
+    setEstado("");
     setNumero("");
     setComplemento("");
   }
@@ -97,38 +84,29 @@ export function CartResume() {
   function aplicarMascaraCelular(valor) {
     return valor
       .replace(/\D/g, "")
-      .replace(/^(\d{2})(\d{4,5})(\d{4})$/, "($1) $2-$3");
-  }
-
-  function aplicarMascaraDNI(valor) {
-    const digits = valor.replace(/\D/g, "").slice(0, 8);
-    if (digits.length <= 7) {
-      return digits.replace(/^(\d{1,2})(\d{3})(\d{2,3})$/, "$1.$2.$3");
-    } else {
-      return digits.replace(/^(\d{2})(\d{3})(\d{3})$/, "$1.$2.$3");
-    }
+      .replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
+      .slice(0, 15);
   }
 
   const enderecoCompletoPreenchido =
-    logradouro && bairro && cidade && provincia;
+    logradouro && bairro && cidade && estado;
 
   const submitOrder = async () => {
     if (!email || !email.includes("@"))
-      return toast.error("Ingresa un e-mail válido.");
-    if (!nome.trim()) return toast.error("Ingresa tu nombre completo.");
-    if (!telefone.trim()) return toast.error("Ingresa tu número de celular.");
-    if (!dni.trim()) return toast.error("Ingresa tu DNI.");
-    if (!codigoPostal.match(/^\d{4}$/))
-      return toast.error("Código postal inválido.");
+      return toast.error("Digite um e-mail válido.");
+    if (!nome.trim()) return toast.error("Digite seu nome completo.");
+    if (!telefone.trim()) return toast.error("Digite seu número de celular.");
+    if (!cep.match(/^\d{5}-?\d{3}$/))
+      return toast.error("CEP inválido.");
     if (!enderecoCompletoPreenchido)
-      return toast.error("Dirección incompleta.");
-    if (!numero.trim()) return toast.error("Ingresa el número de tu domicilio.");
+      return toast.error("Endereço incompleto.");
+    if (!numero.trim()) return toast.error("Digite o número da residência.");
     if (deliveryTax === 0)
-      return toast.error("Calcula el envío antes de finalizar.");
+      return toast.error("Calcule o frete antes de finalizar.");
     if (cartProducts.length === 0)
-      return toast.error("Tu carrito está vacío.");
+      return toast.error("Seu carrinho está vazio.");
 
-    const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} / ${provincia}`;
+    const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`;
 
     const products = cartProducts.map((product) => ({
       id: product.id,
@@ -139,10 +117,9 @@ export function CartResume() {
     const payload = {
       products,
       email,
-      cep: codigoPostal,
+      cep,
       nome,
       telefone,
-      cpfCnpj: dni.replace(/\D/g, ""),
       endereco: enderecoCompleto,
       complemento,
     };
@@ -153,8 +130,8 @@ export function CartResume() {
     } catch (err) {
       const error = err.response?.data?.error;
       toast.error(
-        "Error: " +
-          (Array.isArray(error) ? error.join(", ") : error || "Error inesperado")
+        "Erro: " +
+          (Array.isArray(error) ? error.join(", ") : error || "Erro inesperado")
       );
     }
   };
@@ -178,16 +155,15 @@ export function CartResume() {
           />
         </svg>
 
-        <h2>Tu carrito está vacío.</h2>
-
+        <h2>Seu carrinho está vazio.</h2>
         <p>
-          Antes de continuar con el pago, debes agregar algunos productos a tu
-          carrito de compras. Encontrarás muchos productos interesantes en
-          nuestra página <strong>"Tienda"</strong>.
+          Antes de continuar com o pagamento, adicione alguns produtos ao seu
+          carrinho. Você encontrará muitos produtos interessantes na nossa página
+          <strong> "Loja"</strong>.
         </p>
 
         <EmptyCartButton onClick={() => navigate("/")}>
-          VOLVER A LA TIENDA
+          VOLTAR PARA A LOJA
         </EmptyCartButton>
       </EmptyCartContainer>
     );
@@ -195,69 +171,55 @@ export function CartResume() {
 
   return (
     <Container>
-      <h2 className="title">Datos de contacto y envío</h2>
+      <h2 className="title">Dados de contato e entrega</h2>
 
       <FormGroup>
-       <div className="linha-flex">
-  <label className="label-blue">nombre Completo:</label>
-  <input 
-    type="text"
-  
-    value={nome}
-    onChange={(e) => setNome(e.target.value)}
-  />
-</div>
+        <div className="linha-flex">
+          <label className="label-blue">Nome completo:</label>
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </div>
 
-<div className="linha-flex">
-  <label className="label-blue">e-mail:</label>
-  <input
-    type="email"
-  
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-  />
-</div>
+        <div className="linha-flex">
+          <label className="label-blue">E-mail:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-<div className="linha-flex">
-  <label className="label-blue">celular:</label>
-  <input
-    type="text"
-   
-    value={telefone}
-    onChange={(e) =>
-      setTelefone(aplicarMascaraCelular(e.target.value))
-    }
-  />
-  <div className="linha-flex">
-    <label className="label-blue">DNI:</label>
-    <input
-      type="text"
-   
-      value={dni}
-      onChange={(e) => setDni(aplicarMascaraDNI(e.target.value))}
-    />
-  </div>
-</div>
+        <div className="linha-flex">
+          <label className="label-blue">Celular:</label>
+          <input
+            type="text"
+            value={telefone}
+            onChange={(e) =>
+              setTelefone(aplicarMascaraCelular(e.target.value))
+            }
+          />
+        </div>
 
-<div className="linha-flex">
-  <label className="label-blue">Código Postal:</label>
-  <input
-    type="text"
-  
-    value={codigoPostal}
-    onChange={(e) => setCodigoPostal(e.target.value)}
-  />
-</div>
-
+        <div className="linha-flex">
+          <label className="label-blue">CEP:</label>
+          <input
+            type="text"
+            value={cep}
+            onChange={(e) => setCep(e.target.value)}
+          />
+        </div>
       </FormGroup>
 
       {enderecoCarregado && (
         <EnderecoDetalhado>
           <div className="linha-flex">
-            <label>* Calle:</label>
+            <label>* Rua:</label>
             <input
               type="text"
-              placeholder="Calle *"
+              placeholder="Rua *"
               value={logradouro}
               onChange={(e) => setLogradouro(e.target.value)}
             />
@@ -267,17 +229,17 @@ export function CartResume() {
             <label>* Complemento:</label>
             <input
               type="text"
-              placeholder="Departamento, piso..."
+              placeholder="Apartamento, bloco, etc."
               value={complemento}
               onChange={(e) => setComplemento(e.target.value)}
             />
           </div>
 
           <div className="linha-flex">
-            <label>* Barrio:</label>
+            <label>* Bairro:</label>
             <input
               type="text"
-              placeholder="Barrio *"
+              placeholder="Bairro *"
               value={bairro}
               onChange={(e) => setBairro(e.target.value)}
             />
@@ -290,7 +252,7 @@ export function CartResume() {
           </div>
 
           <div className="linha-flex">
-            <label>* Ciudad:</label>
+            <label>* Cidade:</label>
             <input
               type="text"
               value={cidade}
@@ -298,23 +260,22 @@ export function CartResume() {
               readOnly={!!cidade}
             />
 
-            <label>* Provincia:</label>
+            <label>* Estado:</label>
             <input
               type="text"
-              value={provincia}
-              onChange={(e) => setProvincia(e.target.value)}
-              readOnly={!!provincia}
+              value={estado}
+              onChange={(e) => setEstado(e.target.value)}
+              readOnly={!!estado}
             />
           </div>
         </EnderecoDetalhado>
       )}
 
-      {/* Linha horizontal aparece somente quando enderecoCarregado */}
       <LinhaHorizontal className={enderecoCarregado ? "ativo" : ""} />
 
       <div className="container-bottom">
         <div className="linha-valor">
-          <p>Productos</p>
+          <p>Produtos</p>
           <p>{cartProducts.length}</p>
         </div>
         <div className="linha-valor">
@@ -322,7 +283,7 @@ export function CartResume() {
           <p>{FormatPrice(finalPrice)}</p>
         </div>
         <div className="linha-valor">
-          <p>Envío</p>
+          <p>Frete</p>
           <p>{FormatPrice(deliveryTax)}</p>
         </div>
         <div className="linha-valor total">

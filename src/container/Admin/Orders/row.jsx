@@ -95,6 +95,7 @@ import { api } from '../../../services/api';
                       <TableCell>Produto</TableCell>
                       <TableCell>Categoria</TableCell>
                       <TableCell>image do produto</TableCell>
+                       <TableCell>informacao do cliente </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
