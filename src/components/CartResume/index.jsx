@@ -90,51 +90,50 @@ export function CartResume() {
 
   const enderecoCompletoPreenchido =
     logradouro && bairro && cidade && estado;
+const submitOrder = async () => {
+  // Limpa o CEP para garantir só números
+  const cepLimpo = cep.replace(/\D/g, "");
 
-  const submitOrder = async () => {
-    if (!email || !email.includes("@"))
-      return toast.error("Digite um e-mail válido.");
-    if (!nome.trim()) return toast.error("Digite seu nome completo.");
-    if (!telefone.trim()) return toast.error("Digite seu número de celular.");
-    if (!cep.match(/^\d{5}-?\d{3}$/))
-      return toast.error("CEP inválido.");
-    if (!enderecoCompletoPreenchido)
-      return toast.error("Endereço incompleto.");
-    if (!numero.trim()) return toast.error("Digite o número da residência.");
-    if (deliveryTax === 0)
-      return toast.error("Calcule o frete antes de finalizar.");
-    if (cartProducts.length === 0)
-      return toast.error("Seu carrinho está vazio.");
+  if (!email || !email.includes("@"))
+    return toast.error("Digite um e-mail válido.");
+  if (!nome.trim()) return toast.error("Digite seu nome completo.");
+  if (!telefone.trim()) return toast.error("Digite seu número de celular.");
+  if (cepLimpo.length !== 8) return toast.error("CEP inválido.");
+  if (!logradouro || !bairro || !cidade || !estado)
+    return toast.error("Endereço incompleto.");
+  if (!numero.trim()) return toast.error("Digite o número da residência.");
+  if (deliveryTax === 0) return toast.error("Calcule o frete antes de finalizar.");
+  if (cartProducts.length === 0) return toast.error("Seu carrinho está vazio.");
 
-    const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`;
+  const enderecoCompleto = `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`;
 
-    const products = cartProducts.map((product) => ({
-      id: product.id,
-      quantity: product.quantity,
-      price: product.price,
-    }));
+  const products = cartProducts.map((product) => ({
+    id: product.id,
+    quantity: product.quantity,
+    price: product.price,
+  }));
 
-    const payload = {
-      products,
-      email,
-      cep,
-      nome,
-      telefone,
-      endereco: enderecoCompleto,
-      complemento,
-    };
-
-    try {
-      const { data } = await api.post("/create-payment_intent", payload);
-      navigate("/checkout", { state: data });
-    } catch (err) {
-      const error = err.response?.data?.error;
-      toast.error(
-        "Erro: " +
-          (Array.isArray(error) ? error.join(", ") : error || "Erro inesperado")
-      );
-    }
+  const payload = {
+    products,
+    email,
+    cep: cepLimpo, // envia apenas números
+    nome,
+    telefone,
+    endereco: enderecoCompleto,
+    complemento,
   };
+
+  try {
+    const { data } = await api.post("/create-payment_intent", payload);
+    navigate("/checkout", { state: data });
+  } catch (err) {
+    const error = err.response?.data?.error;
+    toast.error(
+      "Erro: " +
+        (Array.isArray(error) ? error.join(", ") : error || "Erro inesperado")
+    );
+  }
+};
 
   if (cartProducts.length === 0) {
     return (
